@@ -49,7 +49,22 @@ router.get("/:contactId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  res.json({ message: "template message" });
+  try {
+    const { error } = joiSchema.validate(req.body);
+    if (error) {
+      throw new BadRequest(error.message);
+    }
+    const result = await contactsOperations.add(req.body);
+    res.status(201).json({
+      status: "success",
+      code: 201,
+      data: {
+        result,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.delete("/:contactId", async (req, res, next) => {
