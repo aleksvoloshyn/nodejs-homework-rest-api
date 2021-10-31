@@ -1,14 +1,14 @@
-const getAll = require("./getAll");
+const getAll = require('./getAll')
 
 const getById = async (id) => {
-  const contacts = await getAll();
+  const contacts = await getAll()
   const result = contacts.find((item) => {
-    return item.id.toString() === id;
-  });
+    return item.id.toString() === id
+  })
   if (!result) {
-    return null;
+    return null
   }
-  return result;
-};
+  return result
+}
 
-module.exports = getById;
+module.exports = getById
