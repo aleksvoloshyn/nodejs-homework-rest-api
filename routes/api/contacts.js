@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { NotFound, BadRequest } = require("http-errors");
 const Joi = require("joi");
-const contactsOperations = require("../../models/contacts");
+const contactsOperations = require("../../models/contacts/index");
 
 const joiSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
@@ -29,7 +29,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:contactId", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await contactsOperations.getById(id);
