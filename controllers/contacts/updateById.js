@@ -1,16 +1,16 @@
 // const contactsOperations = require('../../models/contacts')
-const { Contact } = require("../../models");
+const { Contact } = require('../../models')
 
 const updateById = async (req, res) => {
-  const { id } = req.params;
-  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+  const { id } = req.params
+  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true })
   res.json({
-    status: "success",
+    status: 'success',
     code: 200,
     data: {
       result,
     },
-  });
-};
+  })
+}
 
-module.exports = updateById;
+module.exports = updateById
