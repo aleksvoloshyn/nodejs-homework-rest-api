@@ -5,6 +5,7 @@ const {
   add,
   updateById,
   removeById,
+  updateStatus,
 } = require("../../controllers/contacts/");
 const { validation, controllerWrapper } = require("../../middlewares");
 const { joiContactSchema } = require("../../models/contact");
@@ -17,6 +18,8 @@ router.get("/:id", controllerWrapper(getById));
 router.post("/", validation(joiContactSchema), controllerWrapper(add));
 
 router.put("/:id", validation(joiContactSchema), controllerWrapper(updateById));
+
+router.patch("/:contactId/favorite", controllerWrapper(updateStatus));
 
 router.delete("/:id", controllerWrapper(removeById));
 
