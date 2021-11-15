@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express')
 const {
   getAll,
   getById,
@@ -6,40 +6,40 @@ const {
   updateById,
   removeById,
   updateStatus,
-} = require("../../controllers/contacts/");
+} = require('../../controllers/contacts/')
 const {
   validation,
   controllerWrapper,
   authenticate,
-} = require("../../middlewares");
+} = require('../../middlewares')
 
-const { joiContactSchema } = require("../../models/contact");
-const router = express.Router();
+const { joiContactSchema } = require('../../models/contact')
+const router = express.Router()
 
-router.get("/", authenticate, controllerWrapper(getAll));
+router.get('/', authenticate, controllerWrapper(getAll))
 
-router.get("/:id", authenticate, controllerWrapper(getById));
+router.get('/:id', authenticate, controllerWrapper(getById))
 
 router.post(
-  "/",
+  '/',
   authenticate,
   validation(joiContactSchema),
   controllerWrapper(add)
-);
+)
 
 router.put(
-  "/:id",
+  '/:id',
   authenticate,
   validation(joiContactSchema),
   controllerWrapper(updateById)
-);
+)
 
 router.patch(
-  "/:contactId/favorite",
+  '/:contactId/favorite',
   authenticate,
   controllerWrapper(updateStatus)
-);
+)
 
-router.delete("/:id", controllerWrapper(removeById));
+router.delete('/:id', controllerWrapper(removeById))
 
-module.exports = router;
+module.exports = router
