@@ -6,11 +6,13 @@ const {
   updateById,
   removeById,
   updateStatus,
+  updateImage,
 } = require('../../controllers/contacts/')
 const {
   validation,
   controllerWrapper,
   authenticate,
+  upload,
 } = require('../../middlewares')
 
 const { joiContactSchema } = require('../../models/contact')
@@ -38,6 +40,12 @@ router.patch(
   '/:contactId/favorite',
   authenticate,
   controllerWrapper(updateStatus)
+)
+
+router.patch(
+  '/:id/image',
+  upload.single('image'),
+  controllerWrapper(updateImage)
 )
 
 router.delete('/:id', controllerWrapper(removeById))
