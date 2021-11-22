@@ -40,6 +40,6 @@ router.patch(
   controllerWrapper(updateStatus)
 )
 
-router.delete('/:id', controllerWrapper(removeById))
+router.delete('/:id', authenticate, controllerWrapper(removeById))
 
 module.exports = router
