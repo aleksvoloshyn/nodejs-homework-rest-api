@@ -11,13 +11,27 @@ const getAll = async (req, res, next) => {
 
   const { _id } = req.user
 
-  const skip = (page - 1) * limit
+  if (page && limit) {
+    const skip = (page - 1) * limit
+    const result = await Contact.find(
+      { owner: _id },
+      '_id name price location owner',
+      { skip, limit: +limit }
+    ).populate('owner', '_id email')
+    res.json({
+      status: 'success',
+      code: 200,
+      data: {
+        result,
+      },
+    })
+    return
+  }
+
   const result = await Contact.find(
     { owner: _id },
-    '_id name price location owner',
-    { skip, limit: +limit }
+    '_id name email phone favorite owner'
   ).populate('owner', '_id email')
-
   res.json({
     status: 'success',
     code: 200,
