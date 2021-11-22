@@ -18,6 +18,8 @@ router.post(
 
 router.post('/login', validation(joiSchema), controllerWrapper(ctrl.login))
 
+router.get('/current', authenticate, controllerWrapper(ctrl.getCurrentUser))
+
 router.get('/logout', authenticate, controllerWrapper(ctrl.logout))
 
 module.exports = router
