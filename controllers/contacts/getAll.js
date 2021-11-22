@@ -25,20 +25,7 @@ const getAll = async (req, res, next) => {
         result,
       },
     })
-    return
   }
-
-  const result = await Contact.find(
-    { owner: _id },
-    '_id name email phone favorite owner'
-  ).populate('owner', '_id email')
-  res.json({
-    status: 'success',
-    code: 200,
-    data: {
-      result,
-    },
-  })
 }
 
 module.exports = getAll
