@@ -1,9 +1,20 @@
 // const contactsOperations = require('../../models/contacts')
 const { Contact } = require('../../models')
+const { NotFound } = require('http-errors')
 
-const updateById = async (req, res) => {
+const updateById = async (req, res, next) => {
   const { id } = req.params
-  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true })
+  const { _id } = req.user
+
+  const result = await Contact.findOneAndUpdate(
+    { owner: _id, _id: id },
+    req.body,
+    { new: true }
+  ).populate('owner', '_id email')
+
+  if (!result) {
+    return next(new NotFound(`Contact with id=${id} not found`))
+  }
   res.json({
     status: 'success',
     code: 200,

@@ -1,12 +1,17 @@
-// const contactsOperations = require('../../models/contacts')
 const { Contact } = require('../../models')
-const { NotFound } = require('../../helpers')
+const { NotFound } = require('http-errors')
 
-const removeById = async (req, res) => {
+const removeById = async (req, res, next) => {
   const { id } = req.params
-  const result = await Contact.findByIdAndRemove(id)
+  const { _id } = req.user
+
+  const result = await Contact.findOneAndRemove({
+    owner: _id,
+    _id: id,
+  })
+  console.log(result)
   if (!result) {
-    throw new NotFound(`Contact with id=${id} not found`)
+    return next(new NotFound(`Contact with id=${id} not found`))
   }
 
   res.json({
