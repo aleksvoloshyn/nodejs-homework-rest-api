@@ -1,11 +1,9 @@
-// const { contactsOperations } = require('../../models/contacts')
 const { Contact } = require('../../models')
 const { NotFound } = require('http-errors')
 
 const getById = async (req, res, next) => {
   const { id } = req.params
   const { _id } = req.user
-  // const result = await Contact.findById(id)
 
   const result = await Contact.findOne({ owner: _id, _id: id }).populate(
     'owner',
