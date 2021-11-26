@@ -4,6 +4,7 @@ const add = require('./add')
 const updateById = require('./updateById')
 const removeById = require('./removeById')
 const updateStatus = require('./updateStatus')
+const updateImage = require('./updateImage')
 
 module.exports = {
   getAll,
@@ -12,4 +13,5 @@ module.exports = {
   updateById,
   removeById,
   updateStatus,
+  updateImage,
 }
