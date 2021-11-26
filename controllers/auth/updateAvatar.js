@@ -13,18 +13,22 @@ const updateAvatar = async (req, res, next) => {
     return next(new BadRequest('Error upload '))
   }
 
-  const { id } = req.user
+  //   console.log(id)
   const { path: tmpUpload, originalname } = req.file
+  console.log(tmpUpload)
 
   try {
-    const resultUpload = path.join(avatarsDir, id, originalname)
-    await fs.rename(tmpUpload, resultUpload)
+    const { id } = req.user
+    const resultUpload = path.join(avatarsDir, String(id), originalname)
 
+    await fs.rename(tmpUpload, resultUpload)
+    console.log('123')
     const avatar = path.join('/avatars', originalname)
+    console.log(avatar)
 
     await Jimp.read(resultUpload).resize(250, 250).write(resultUpload)
 
-    await User.findByIdAndUpdate(id, { avatarURL: avatar })
+    await User.findByIdAndUpdate(id, { avatarURL: avatar }, { new: true })
 
     res.json({
       status: 'success',

@@ -15,7 +15,7 @@ const getAll = async (req, res, next) => {
     const skip = (page - 1) * limit
     const result = await Contact.find(
       { owner: _id },
-      '_id name price location owner',
+      '_id name email phone favorite owner',
       { skip, limit: +limit }
     ).populate('owner', '_id email')
     res.json({
