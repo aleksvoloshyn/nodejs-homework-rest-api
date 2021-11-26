@@ -14,11 +14,11 @@ const updateAvatar = async (req, res, next) => {
   }
 
   const { id } = req.user
-  const { path: tempUpload, originalname } = req.file
+  const { path: tmpUpload, originalname } = req.file
 
   try {
     const resultUpload = path.join(avatarsDir, id, originalname)
-    await fs.rename(tempUpload, resultUpload)
+    await fs.rename(tmpUpload, resultUpload)
 
     const avatar = path.join('/contacts', originalname)
 
@@ -34,7 +34,7 @@ const updateAvatar = async (req, res, next) => {
       },
     })
   } catch (error) {
-    await fs.unlink(tempUpload)
+    await fs.unlink(tmpUpload)
     throw error
   }
 }
