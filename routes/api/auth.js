@@ -4,6 +4,7 @@ const {
   validation,
   authenticate,
   controllerWrapper,
+  upload,
 } = require('../../middlewares')
 const { auth: ctrl } = require('../../controllers')
 const { joiSchema } = require('../../models/user')
@@ -21,5 +22,12 @@ router.post('/login', validation(joiSchema), controllerWrapper(ctrl.login))
 router.get('/current', authenticate, controllerWrapper(ctrl.getCurrentUser))
 
 router.get('/logout', authenticate, controllerWrapper(ctrl.logout))
+
+router.patch(
+  '/updateimg',
+  authenticate,
+  upload.single('avatar'),
+  controllerWrapper(ctrl.updateAvatar)
+)
 
 module.exports = router

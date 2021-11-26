@@ -21,11 +21,6 @@ const contactSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
-
-    image: {
-      type: String,
-      required: true,
-    },
   },
   { versionKey: false, timestamps: true }
 )
