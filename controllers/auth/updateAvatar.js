@@ -20,7 +20,7 @@ const updateAvatar = async (req, res, next) => {
     const resultUpload = path.join(avatarsDir, id, originalname)
     await fs.rename(tmpUpload, resultUpload)
 
-    const avatar = path.join('/contacts', originalname)
+    const avatar = path.join('/avatars', originalname)
 
     await Jimp.read(resultUpload).resize(250, 250).write(resultUpload)
 
