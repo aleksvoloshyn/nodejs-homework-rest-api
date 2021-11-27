@@ -13,7 +13,6 @@ const updateAvatar = async (req, res, next) => {
   }
 
   const { path: tmpUpload, originalname } = req.file
-  console.log(tmpUpload)
 
   try {
     const { id } = req.user
