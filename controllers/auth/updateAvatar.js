@@ -2,7 +2,6 @@ const fs = require('fs/promises')
 const path = require('path')
 const { BadRequest } = require('http-errors')
 const Jimp = require('jimp')
-// const moment = require('moment')
 
 const { User } = require('../../models')
 
@@ -13,20 +12,17 @@ const updateAvatar = async (req, res, next) => {
     return next(new BadRequest('Error upload '))
   }
 
-  //   console.log(id)
   const { path: tmpUpload, originalname } = req.file
   console.log(tmpUpload)
 
   try {
     const { id } = req.user
-    const resultUpload = path.join(avatarsDir, String(id), originalname)
+    const resultUpload = path.join(avatarsDir, originalname)
 
     await fs.rename(tmpUpload, resultUpload)
-    console.log('123')
     const avatar = path.join('/avatars', originalname)
-    console.log(avatar)
-
-    await Jimp.read(resultUpload).resize(250, 250).write(resultUpload)
+    const file = await Jimp.read(resultUpload)
+    file.resize(250, 250).write(resultUpload)
 
     await User.findByIdAndUpdate(id, { avatarURL: avatar }, { new: true })
 

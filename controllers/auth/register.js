@@ -12,7 +12,7 @@ const register = async (req, res) => {
   newUser.setPassword(password)
 
   await newUser.save()
-  //   const newUser = await User.create({ email, password });
+
   res.status(201).json({
     status: 'success',
     code: 201,

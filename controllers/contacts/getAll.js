@@ -1,4 +1,3 @@
-// const contactsOperations = require("../../models/contacts");
 const { Contact } = require('../../models')
 const { BadRequest } = require('http-errors')
 

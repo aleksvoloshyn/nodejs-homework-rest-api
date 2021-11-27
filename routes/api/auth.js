@@ -26,7 +26,7 @@ router.get('/logout', authenticate, controllerWrapper(ctrl.logout))
 router.patch(
   '/avatars',
   authenticate,
-  upload.single('avatarURL'),
+  upload.single('avatar'),
   controllerWrapper(ctrl.updateAvatar)
 )
 
