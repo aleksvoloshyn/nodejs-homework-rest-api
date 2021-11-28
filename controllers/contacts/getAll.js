@@ -1,4 +1,3 @@
-// const contactsOperations = require("../../models/contacts");
 const { Contact } = require('../../models')
 const { BadRequest } = require('http-errors')
 
@@ -15,15 +14,13 @@ const getAll = async (req, res, next) => {
     const skip = (page - 1) * limit
     const result = await Contact.find(
       { owner: _id },
-      '_id name price location owner',
+      '_id name email phone favorite owner',
       { skip, limit: +limit }
     ).populate('owner', '_id email')
     res.json({
       status: 'success',
       code: 200,
-      data: {
-        result,
-      },
+      data: result,
     })
   }
 }
