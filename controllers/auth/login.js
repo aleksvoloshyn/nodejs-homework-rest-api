@@ -1,15 +1,21 @@
-const { BadRequest } = require('http-errors')
+const { BadRequest, Forbidden } = require('http-errors')
 const jwt = require('jsonwebtoken')
 
 const { User } = require('../../models')
 const { SECRET_KEY } = process.env
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body
   const user = await User.findOne({ email })
-  if (!user || !user.comparePassword(password)) {
-    throw new BadRequest('Wrong email or password')
+
+  if (!user.verify) {
+    return next(new Forbidden('You need to confirm your email'))
   }
+
+  if (!user || !user.comparePassword(password)) {
+    return next(new BadRequest('Wrong email or password'))
+  }
+
   const payload = {
     id: user._id,
   }
